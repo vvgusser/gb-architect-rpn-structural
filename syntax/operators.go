@@ -28,6 +28,14 @@ var operators = map[string]Operator{
 	"/": {false, 3},
 }
 
+// handlers map of handling functions for all operators
+var handlers = map[string]func(a, b Operand) (float64, error){
+	"+": plus,
+	"-": minus,
+	"/": divide,
+	"*": multiply,
+}
+
 // plus operator sum two operands, this is also
 // unary operator and can handle only one operand
 // when second has IsSet = false
@@ -62,14 +70,6 @@ func divide(a, b Operand) (float64, error) {
 // first operand to second
 func multiply(a, b Operand) (float64, error) {
 	return a.Value * b.Value, nil
-}
-
-// handlers map of handling functions for all operators
-var handlers = map[string]func(a, b Operand) (float64, error){
-	"+": plus,
-	"-": minus,
-	"/": divide,
-	"*": multiply,
 }
 
 // GetOpt return operator meta information and boolean
