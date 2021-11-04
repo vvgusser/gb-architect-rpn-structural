@@ -39,14 +39,10 @@ func RunRepl() {
 
 		text = strings.ReplaceAll(text, "\n", "")
 
-		rpn, ans, err := rpn2.Rpn(text)
-
-		if err != nil {
+		if rpn, ans, err := rpn2.Rpn(text); err != nil {
 			color.Red(err.Error())
-			continue
+		} else {
+			color.Green("> %v\n> %v\n", rpn, ans)
 		}
-
-		color.Green("> %v\n", rpn)
-		color.Green("> %v\n", ans)
 	}
 }
