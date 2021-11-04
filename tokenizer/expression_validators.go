@@ -117,10 +117,16 @@ func ValidateOpenBraces(expr string) error {
 			continue
 		}
 
-		if r == '(' && pos > 0 && !syntax.IsOp(string(prev)) {
-			return IllegalExpressionError{
-				"before open brace always must be operator except start of expression",
-				expr, pos,
+		if r == '(' {
+			if pos > 0 && !syntax.IsOp(string(prev)) {
+				return IllegalExpressionError{
+					"before open brace always must be operator except start of expression",
+					expr, pos,
+				}
+			}
+
+			if next, hasNext := NextNonSpaceTokenAfter(expr, pos+1); hasNext && next == ')' {
+				return IllegalExpressionError{"empty braces not allowed", expr, pos}
 			}
 		}
 

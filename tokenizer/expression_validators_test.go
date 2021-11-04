@@ -71,6 +71,7 @@ func TestValidateOpenBraces(t *testing.T) {
 
 func TestValidateOpenBracesErrors(t *testing.T) {
 	assert.Error(t, ValidateOpenBraces("98 (32+6)"))
+	assert.Error(t, ValidateOpenBraces("3*()"))
 }
 
 func TestValidateOperatorsErrors(t *testing.T) {

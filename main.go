@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"github.com/fatih/color"
 	rpn2 "gusser/rpn/rpn"
+	"io"
 	"os"
 	"strings"
-	"io"
 )
 
 func main() {
