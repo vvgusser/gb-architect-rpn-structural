@@ -25,8 +25,8 @@ func (e TooLongExpressionError) Error() string {
 func Rpn(expr string) (string, float64, error) {
 	expr = strings.TrimSpace(expr)
 
-	if len(expr) >= MaxExprLength {
-		return "", 0, TooLongExpressionError{MaxExprLength, len(expr)}
+	if exLen := len(expr); exLen >= MaxExprLength {
+		return "", 0, TooLongExpressionError{MaxExprLength, exLen}
 	}
 
 	tokens, err := tokenizer.Tokenize(expr)
