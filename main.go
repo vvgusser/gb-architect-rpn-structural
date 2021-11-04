@@ -6,25 +6,13 @@ import (
 	"github.com/fatih/color"
 	rpn2 "gusser/rpn/rpn"
 	"os"
-	"os/signal"
 	"strings"
-	"syscall"
+	"io"
 )
 
 func main() {
-	SetupCloseHandler()
 	PrintWelcome()
 	RunRepl()
-}
-
-func SetupCloseHandler() {
-	c := make(chan os.Signal)
-	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
-	go func() {
-		<-c
-		fmt.Println("\n\U0001F97A bye!")
-		os.Exit(0)
-	}()
 }
 
 func PrintWelcome() {
@@ -43,8 +31,10 @@ func RunRepl() {
 		text, err := reader.ReadString('\n')
 
 		if err != nil {
-			color.Red("error: %s", err.Error())
-			continue
+			if err != io.EOF {
+				color.Red("error: %s", err.Error())
+			}
+			break
 		}
 
 		text = strings.ReplaceAll(text, "\n", "")
