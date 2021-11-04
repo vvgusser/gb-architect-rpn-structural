@@ -172,13 +172,10 @@ func ValidateOperators(expr string) error {
 // and false in hasNext status, that means that any symbol expect
 // whitespace not present in given string
 func NextNonSpaceTokenAfter(str string, pos int) (rune, bool) {
-	N := len(str)
-
-	for i := pos; i < N; i++ {
+	for i := pos; i < len(str); i++ {
 		if tok := rune(str[i]); tok != ' ' {
 			return tok, true
 		}
 	}
-
 	return 0, false
 }
